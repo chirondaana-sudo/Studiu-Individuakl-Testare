@@ -1,0 +1,1405 @@
+
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raport de testare | dm.ro</title>
+
+<style>
+:root {
+    --blue: #527dbd;
+    --blue2: #8eb8f4;
+    --pink: #f3a9cb;
+    --ink: #26364d;
+    --muted: #718096;
+    --bg: #f7f9ff;
+    --line: #e3eaf5;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    font: 15px/1.6 "Segoe UI", Arial, sans-serif;
+    color: var(--ink);
+}
+
+/* HEADER */
+
+header {
+    background: linear-gradient(120deg, #77a0de, #99b7e3 65%, #e98fb6);
+    color: white;
+    padding: 46px 22px 38px;
+}
+
+.hero {
+    max-width: 1180px;
+    margin: auto;
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    font-weight: 700;
+    opacity: .85;
+}
+
+.hero h1 {
+    font-size: clamp(30px, 5vw, 48px);
+    line-height: 1.12;
+    margin: 12px 0;
+}
+
+.hero p {
+    max-width: 720px;
+    font-size: 17px;
+    opacity: .94;
+}
+
+.chips {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+}
+
+.chip {
+    border: 1px solid #ffffff65;
+    background: #ffffff1c;
+    border-radius: 30px;
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+/* LAYOUT */
+
+.layout {
+    max-width: 1180px;
+    margin: 28px auto;
+    padding: 0 18px;
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 22px;
+}
+
+/* MENIU */
+
+.side {
+    align-self: start;
+    position: sticky;
+    top: 18px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 15px;
+    padding: 16px;
+}
+
+.side b {
+    display: block;
+    margin: 0 0 10px;
+    color: var(--blue);
+}
+
+.side a {
+    display: block;
+    text-decoration: none;
+    color: #52617a;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.side a:hover {
+    background: #edf3ff;
+    color: var(--blue);
+}
+
+main {
+    min-width: 0;
+}
+
+/* SECTIUNI */
+
+.section {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px #1b376008;
+    scroll-margin-top: 20px;
+}
+
+.section h2 {
+    margin: 0 0 14px;
+    font-size: 23px;
+    color: var(--blue);
+}
+
+.section h3 {
+    margin: 22px 0 8px;
+    font-size: 17px;
+}
+
+.lead {
+    color: var(--muted);
+    margin-top: -4px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.stat {
+    padding: 16px;
+    background: #f1f6ff;
+    border-radius: 12px;
+    border-bottom: 3px solid var(--pink);
+}
+
+.stat strong {
+    display: block;
+    font-size: 25px;
+    color: var(--blue);
+}
+
+.stat span {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+ul {
+    padding-left: 21px;
+}
+
+li {
+    margin: 5px 0;
+}
+
+/* TABELE */
+
+.tablewrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    min-width: 660px;
+}
+
+th {
+    background: #edf3ff;
+    color: #244b85;
+    text-align: left;
+    font-weight: 700;
+}
+
+th, td {
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+}
+
+tbody tr:hover {
+    background: #fafcff;
+}
+
+/* BADGE */
+
+.pill {
+    display: inline-block;
+    border-radius: 20px;
+    padding: 3px 9px;
+    font-size: 12px;
+    font-weight: 700;
+    background: #eef2f7;
+    color: #56647a;
+}
+
+.pill.todo {
+    background: #fff1f7;
+    color: #b62b6b;
+}
+
+.pill.pass {
+    background: #e7f7ef;
+    color: #14764f;
+}
+
+.badge {
+    display: inline-block;
+    background: #e9f1ff;
+    color: var(--blue);
+    font-size: 12px;
+    padding: 4px 9px;
+    border-radius: 6px;
+    font-weight: 700;
+}
+
+/* CALLOUT */
+
+.callout {
+    border-left: 4px solid var(--pink);
+    background: #fff5fa;
+    padding: 13px 16px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.note {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+/* CHECKLIST */
+
+.bar {
+    height: 7px;
+    background: #e8edf5;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 8px 0 16px;
+}
+
+.bar span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--blue2), var(--pink));
+    transition: width .2s;
+}
+
+.checklist label {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 9px 0;
+    border-bottom: 1px solid #eef1f5;
+}
+
+.checklist input {
+    accent-color: var(--blue);
+    margin-top: 5px;
+}
+
+.checklist label:has(input:checked) span {
+    text-decoration: line-through;
+    color: #7b8799;
+}
+
+/* BUTOANE */
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+button {
+    border: 0;
+    border-radius: 9px;
+    padding: 10px 15px;
+    font-weight: 700;
+    cursor: pointer;
+    background: var(--blue);
+    color: white;
+}
+
+button.secondary {
+    background: #edf2fa;
+    color: var(--blue);
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .side {
+        position: static;
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+
+    .side b {
+        width: 100%;
+    }
+
+    .side a {
+        display: inline-block;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media(max-width:520px) {
+    .section {
+        padding: 18px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 0 3px;
+    }
+}
+
+/* PRINTARE */
+
+@media print {
+    body {
+        background: white;
+    }
+
+    .layout {
+        display: block;
+        margin: 0;
+        max-width: none;
+    }
+
+    .side,
+    .buttons {
+        display: none;
+    }
+
+    header {
+        padding: 25px;
+    }
+
+    .section {
+        box-shadow: none;
+        break-inside: avoid;
+        margin-bottom: 12px;
+    }
+
+    .checklist input {
+        display: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+    <div class="hero">
+
+        <div class="eyebrow">
+            Studiu individual · Testarea aplicațiilor
+        </div>
+
+        <h1>
+            Design de testare<br>
+            și securitatea aplicației web
+        </h1>
+
+        <p>
+            Raport de testare pentru magazinul online
+            <strong>dm.ro</strong>. Documentul prezintă planul
+            de testare, scenarii funcționale și verificări
+            de securitate web.
+        </p>
+
+        <div class="chips">
+            <span class="chip">Aplicație analizată: dm.ro</span>
+            <span class="chip">Testare funcțională</span>
+            <span class="chip">Securitate web</span>
+            <span class="chip">Raport demonstrativ</span>
+        </div>
+
+    </div>
+</header>
+
+<!-- CONTINUT -->
+
+<div class="layout">
+
+    <!-- MENIU STANGA -->
+
+    <nav class="side" aria-label="Navigare raport">
+
+        <b>Cuprins</b>
+
+        <a href="#prezentare">Prezentare generală</a>
+        <a href="#plan">Plan de testare</a>
+        <a href="#autentificare">Autentificare</a>
+        <a href="#antete">Antete HTTP</a>
+        <a href="#api">Securitate API</a>
+        <a href="#injectii">Injecții și validare</a>
+        <a href="#suplimentare">Teste suplimentare</a>
+        <a href="#concluzii">Concluzie</a>
+
+    </nav>
+
+    <main>
+
+        <!-- PREZENTARE -->
+
+        <section class="section" id="prezentare">
+
+            <span class="badge">01 · Context</span>
+
+            <h2>Prezentarea aplicației</h2>
+
+            <p>
+                dm.ro este magazinul online al brandului dm,
+                prin intermediul căruia utilizatorii pot consulta
+                produse, căuta articole, explora categorii și
+                utiliza funcționalitățile de cumpărare disponibile
+                pe site.
+            </p>
+
+            <p>
+                Scopul acestui proiect este elaborarea unui set
+                de teste care să verifice comportamentul principalelor
+                funcționalități și să evidențieze aspecte relevante
+                pentru securitatea unei aplicații web.
+            </p>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <strong>12</strong>
+                    <span>Scenarii funcționale propuse</span>
+                </div>
+
+                <div class="stat">
+                    <strong>4</strong>
+                    <span>Zone de securitate de verificat</span>
+                </div>
+
+                <div class="stat">
+                    <strong>2</strong>
+                    <span>Direcții: funcționalitate și securitate</span>
+                </div>
+
+            </div>
+
+
+        </section>
+
+        <!-- PLAN TESTARE -->
+
+        <section class="section" id="plan">
+
+            <span class="badge">02 · Organizare</span>
+
+            <h2>Planul de testare</h2>
+
+            <h3>Obiective</h3>
+
+            <ul>
+                <li>
+                    Verificarea navigării și a funcțiilor principale
+                    ale magazinului.
+                </li>
+
+                <li>
+                    Verificarea afișării și actualizării informațiilor
+                    despre produse și coș.
+                </li>
+
+                <li>
+                    Identificarea erorilor de utilizare și a
+                    comportamentelor neașteptate.
+                </li>
+
+                <li>
+                    Analiza unor măsuri de securitate observabile
+                    în browser.
+                </li>
+            </ul>
+
+            <h3>Domeniul testării</h3>
+
+            <p>
+                Se testează paginile publice, căutarea, categoriile,
+                filtrele, sortarea și coșul, în măsura în care
+                funcțiile sunt accesibile. Se pot analiza conexiunea
+                HTTPS și antetele de răspuns folosind instrumentele
+                browserului.
+            </p>
+
+            <h3>Tipuri de testare</h3>
+
+            <ul>
+                <li>
+                    <strong>Funcțională:</strong>
+                    verifică dacă funcțiile produc rezultatul așteptat.
+                </li>
+
+                <li>
+                    <strong>De interfață:</strong>
+                    verifică afișarea și utilizarea pe desktop și mobil.
+                </li>
+
+                <li>
+                    <strong>De regresie:</strong>
+                    repetă testele după modificări.
+                </li>
+
+                <li>
+                    <strong>De securitate neintruzivă:</strong>
+                    verifică setări și comportamente observabile
+                    fără a afecta serviciul.
+                </li>
+            </ul>
+
+            <h3>Criterii de acceptare</h3>
+
+            <p>
+                Un test este considerat trecut când rezultatul
+                observat corespunde rezultatului așteptat.
+                Dacă diferă, se înregistrează ca eșuat și se
+                atașează dovada: captură, adresă, dată și pași.
+            </p>
+
+        </section>
+
+        <!-- TESTARE FUNCTIONALA -->
+
+        <section class="section" id="functional">
+
+            <span class="badge">03 · Teste</span>
+
+            <h2>Set de test-case-uri funcționale</h2>
+
+            <p class="lead">
+                Execută testele pe site și completează coloana
+                „Rezultat obținut” și statutul.
+            </p>
+
+            <div class="tablewrap">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Scenariu / pași</th>
+                            <th>Rezultat așteptat</th>
+                            <th>Rezultat obținut</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>TC-01</td>
+                            <td>Deschide pagina principală dm.ro.</td>
+                            <td>
+                                Pagina se încarcă și elementele
+                                principale sunt vizibile.
+                            </td>
+                            <td>De completat</td>
+                            <td><span class="pill todo">Neexecutat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>TC-02</td>
+                            <td>
+                                Introdu un nume de produs existent
+                                în căutare.
+                            </td>
+                            <td>Sunt afișate rezultate relevante.</td>
+                            <td>De completat</td>
+                            <td><span class="pill todo">Neexecutat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>TC-03</td>
+                            <td>Caută un termen fără rezultate.</td>
+                            <td>
+                                Este afișat un mesaj sau un rezultat
+                                gol clar.
+                            </td>
+                            <td>De completat</td>
+                            <td><span class="pill todo">Neexecutat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>TC-04</td>
+                            <td>Deschide o categorie de produse.</td>
+                            <td>
+                                Sunt afișate produse din categoria aleasă.
+                            </td>
+                            <td>De completat</td>
+                            <td><span class="pill todo">Neexecutat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>TC-05</td>
+                            <td>Aplică un filtru disponibil.</td>
+                            <td>
+                                Lista reflectă filtrul selectat.
+                            </td>
+                            <td>De completat</td>
+                            <td><span class="pill todo">Neexecutat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>TC-06</td>
+                            <td>
+                                Schimbă ordonarea produselor după preț,
+                                dacă există.
+                            </td>
+                            <td>
+                                Produsele sunt ordonate conform opțiunii.
+                            </td>
+                            <td>De completat</td>
+                            <td><span class="pill todo">Neexecutat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>TC-07</td>
+                            <td>Deschide pagina unui produs.</td>
+                            <td>
+                                Se afișează denumirea, prețul și
+                                informațiile disponibile.
+                            </td>
+                            <td>De completat</td>
+                            <td><span class="pill todo">Neexecutat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>TC-08</td>
+                            <td>
+                                Adaugă un produs în coș, dacă funcția
+                                este disponibilă.
+                            </td>
+                            <td>
+                                Produsul apare în coș și indicatorul
+                                se actualizează.
+                            </td>
+                            <td>De completat</td>
+                            <td><span class="pill todo">Neexecutat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>TC-09</td>
+                            <td>Modifică numărul de unități în coș.</td>
+                            <td>
+                                Cantitatea și totalul se actualizează
+                                corect.
+                            </td>
+                            <td>De completat</td>
+                            <td><span class="pill todo">Neexecutat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>TC-10</td>
+                            <td>Elimină un produs din coș.</td>
+                            <td>
+                                Produsul este eliminat, iar totalul
+                                se recalculează.
+                            </td>
+                            <td>De completat</td>
+                            <td><span class="pill todo">Neexecutat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>TC-11</td>
+                            <td>
+                                Accesează site-ul de pe un ecran mobil
+                                sau redimensionează fereastra.
+                            </td>
+                            <td>
+                                Conținutul rămâne lizibil și utilizabil.
+                            </td>
+                            <td>De completat</td>
+                            <td><span class="pill todo">Neexecutat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>TC-12</td>
+                            <td>
+                                Folosește navigarea și butonul Înapoi
+                                al browserului.
+                            </td>
+                            <td>
+                                Utilizatorul poate reveni fără erori
+                                nejustificate.
+                            </td>
+                            <td>De completat</td>
+                            <td><span class="pill todo">Neexecutat</span></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- AUTENTIFICARE -->
+
+        <section class="section" id="autentificare">
+
+            <span class="badge">04 · Securitate</span>
+
+            <h2>Testarea autentificării</h2>
+
+            <p class="lead">
+                Verificări ale fluxurilor de autentificare disponibile
+                utilizatorilor, fără încercări asupra conturilor
+                altor persoane.
+            </p>
+
+            <div class="tablewrap">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Scenariu</th>
+                            <th>Rezultat așteptat</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>AUTH-01</td>
+                            <td>
+                                Deschiderea paginii de autentificare,
+                                dacă este disponibilă.
+                            </td>
+                            <td>
+                                Formularul și câmpurile sunt afișate
+                                corect.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>AUTH-02</td>
+                            <td>
+                                Trimiterea formularului cu date
+                                necompletate.
+                            </td>
+                            <td>
+                                Sunt afișate mesaje de validare potrivite.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>AUTH-03</td>
+                            <td>
+                                Utilizarea unor date de autentificare
+                                incorecte, într-un cont propriu de test.
+                            </td>
+                            <td>
+                                Autentificarea este refuzată, fără
+                                divulgare inutilă de informații.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>AUTH-04</td>
+                            <td>
+                                Verificarea opțiunii de deconectare,
+                                dacă este disponibilă.
+                            </td>
+                            <td>
+                                Sesiunea utilizatorului se încheie
+                                corespunzător.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- ANTETE HTTP -->
+
+        <section class="section" id="antete">
+
+            <span class="badge">05 · Securitate</span>
+
+            <h2>Verificarea antetelor HTTP</h2>
+
+            <p>
+                În browser: DevTools → Network → reîncarcă pagina
+                → selectează cererea documentului → Headers
+                → Response Headers.
+            </p>
+
+            <div class="tablewrap">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Antet</th>
+                            <th>Ce se verifică</th>
+                            <th>Scop</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>Content-Security-Policy</td>
+                            <td>
+                                Prezența și directivele politicii CSP.
+                            </td>
+                            <td>
+                                Restricționarea surselor de conținut
+                                și reducerea riscului XSS.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>X-Frame-Options / frame-ancestors</td>
+                            <td>
+                                Protecția împotriva încadrării nepermise.
+                            </td>
+                            <td>
+                                Reducerea riscului de clickjacking.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>X-Content-Type-Options</td>
+                            <td>
+                                Valoarea nosniff, dacă este prezentă.
+                            </td>
+                            <td>
+                                Prevenirea interpretării incorecte
+                                a tipului MIME.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>Strict-Transport-Security</td>
+                            <td>
+                                Prezența și valoarea HSTS în răspunsul
+                                HTTPS.
+                            </td>
+                            <td>
+                                Instrucțiune browserului de a utiliza
+                                HTTPS.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- SECURITATE API -->
+
+        <section class="section" id="api">
+
+            <span class="badge">06 · Securitate</span>
+
+            <h2>Securitatea API</h2>
+
+            <p>
+                În cadrul acestui studiu se analizează doar
+                comportamentele API care pot fi observate în mod
+                legitim prin utilizarea normală a site-ului și
+                instrumentele browserului. Nu se efectuează
+                scanări automate sau solicitări neautorizate.
+            </p>
+
+            <div class="tablewrap">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Verificare</th>
+                            <th>Rezultat așteptat</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>API-01</td>
+                            <td>
+                                Observarea cererilor de rețea generate
+                                de paginile publice.
+                            </td>
+                            <td>
+                                Cererile necesare funcției sunt
+                                completate fără erori neașteptate.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>API-02</td>
+                            <td>
+                                Observarea codurilor HTTP ale cererilor
+                                publice.
+                            </td>
+                            <td>
+                                Codurile răspunsurilor corespund
+                                rezultatului cererii.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>API-03</td>
+                            <td>
+                                Verificarea dacă răspunsurile publice
+                                expun date personale sau secrete
+                                nejustificate.
+                            </td>
+                            <td>
+                                Răspunsurile nu expun informații
+                                sensibile inutile.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div class="callout">
+                <strong>Limită:</strong>
+                testele de autorizare, acces la date private și
+                modificarea cererilor API necesită permisiune
+                explicită și un mediu de test.
+            </div>
+
+        </section>
+
+        <!-- INJECTII SI VALIDARE -->
+
+        <section class="section" id="injectii">
+
+            <span class="badge">07 · Securitate</span>
+
+            <h2>Injecții și validarea datelor</h2>
+
+            <p>
+                Se verifică în mod sigur validarea intrărilor din
+                funcțiile publice, precum căutarea și formularele
+                disponibile. Se pot folosi valori obișnuite invalide
+                sau caractere speciale nepericuloase, fără a încerca
+                exploatarea sistemului.
+            </p>
+
+            <div class="tablewrap">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Scenariu</th>
+                            <th>Rezultat așteptat</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>INJ-01</td>
+                            <td>
+                                Introducerea unui termen foarte lung
+                                în căutare.
+                            </td>
+                            <td>
+                                Pagina gestionează intrarea fără blocare
+                                sau afișare defectuoasă.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>INJ-02</td>
+                            <td>
+                                Introducerea de caractere speciale
+                                inofensive în căutare.
+                            </td>
+                            <td>
+                                Intrarea este tratată ca text, iar
+                                pagina rămâne funcțională.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>INJ-03</td>
+                            <td>
+                                Trimiterea unui formular cu câmpuri
+                                invalide, dacă există.
+                            </td>
+                            <td>
+                                Aplicația semnalează câmpurile și
+                                nu acceptă date invalide.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>INJ-04</td>
+                            <td>
+                                Observarea mesajelor de eroare generate
+                                de intrări invalide.
+                            </td>
+                            <td>
+                                Mesajele nu divulgă detalii interne
+                                tehnice.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- TESTE SUPLIMENTARE -->
+
+        <section class="section" id="suplimentare">
+
+            <span class="badge">08 · Testare</span>
+
+            <h2>Teste suplimentare</h2>
+
+            <div class="tablewrap">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Scenariu</th>
+                            <th>Rezultat așteptat</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>SUP-01</td>
+                            <td>
+                                Verificarea aspectului pe desktop și mobil.
+                            </td>
+                            <td>
+                                Conținutul rămâne lizibil și ușor
+                                de utilizat.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>SUP-02</td>
+                            <td>
+                                Verificarea navigării între pagini
+                                și a butonului Înapoi.
+                            </td>
+                            <td>
+                                Navigarea funcționează fără erori
+                                neașteptate.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>SUP-03</td>
+                            <td>
+                                Verificarea mesajelor pentru pagini
+                                sau produse indisponibile.
+                            </td>
+                            <td>
+                                Utilizatorul primește o informare clară.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>SUP-04</td>
+                            <td>
+                                Verificarea accesibilității de bază:
+                                contrast, etichete și navigare
+                                cu tastatura.
+                            </td>
+                            <td>
+                                Elementele principale pot fi identificate
+                                și utilizate.
+                            </td>
+                            <td><span class="pill todo">De verificat</span></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- CHECKLIST -->
+
+        <section class="section" id="rezultate">
+
+            <span class="badge">09 · Evidență</span>
+
+            <h2>Checklist de execuție</h2>
+
+            <p>
+                Folosește lista pentru a marca verificările efectuate.
+                Progresul este calculat în această pagină;
+                nu se salvează pe server.
+            </p>
+
+            <div id="progressText">
+                0 din 8 verificări completate
+            </div>
+
+            <div class="bar">
+                <span id="progressBar"></span>
+            </div>
+
+            <div class="checklist" id="checks">
+
+                <label>
+                    <input type="checkbox">
+                    <span>Am verificat pagina principală.</span>
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    <span>Am executat testele de căutare.</span>
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    <span>
+                        Am verificat categoria, filtrarea și sortarea.
+                    </span>
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    <span>Am verificat pagina produsului.</span>
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    <span>
+                        Am verificat coșul, dacă este disponibil.
+                    </span>
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    <span>Am verificat afișarea pe mobil.</span>
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    <span>Am analizat antetele HTTP.</span>
+                </label>
+
+                <label>
+                    <input type="checkbox">
+                    <span>
+                        Am consemnat rezultate și capturi de ecran.
+                    </span>
+                </label>
+
+            </div>
+
+            <div class="buttons">
+
+                <button onclick="window.print()">
+                    Imprimă / Salvează PDF
+                </button>
+
+                <button class="secondary" onclick="resetChecks()">
+                    Resetează checklistul
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- REGISTRU CONSTATARI -->
+
+        <section class="section" id="constatari">
+
+            <span class="badge">10 · Probleme</span>
+
+            <h2>Registrul de constatări</h2>
+
+            <p>
+                Completează acest tabel numai cu probleme observate
+                în timpul testării. Dacă nu au fost identificate
+                probleme, menționează că nu au fost constatate
+                în limitele testelor efectuate.
+            </p>
+
+            <div class="tablewrap">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Descriere</th>
+                            <th>Dovadă</th>
+                            <th>Severitate</th>
+                            <th>Recomandare</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>F-01</td>
+                            <td>De completat după testare</td>
+                            <td>Captură / pași / dată</td>
+                            <td>Scăzută / Medie / Ridicată</td>
+                            <td>
+                                De stabilit în funcție de problemă
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- CONCLUZIE -->
+
+        <section class="section" id="concluzii">
+
+            <span class="badge">11 · Încheiere</span>
+
+            <h2>Concluzie</h2>
+
+            <p>
+                În cadrul acestui studiu individual a fost elaborat
+                un plan de testare pentru magazinul online dm.ro,
+                care include verificarea funcționalităților principale
+                și analiza unor aspecte de securitate ale aplicației web.
+                Scenariile de testare permit evaluarea navigării,
+                căutării produselor, utilizării coșului de cumpărături,
+                autentificării și protecției datelor transmise prin HTTP.
+            </p>
+
+            <p>
+                Aplicarea acestor teste contribuie la identificarea
+                eventualelor erori și la înțelegerea importanței
+                securității în dezvoltarea aplicațiilor web.
+                Concluziile finale privind calitatea și securitatea
+                aplicației vor fi formulate în baza rezultatelor
+                obținute efectiv și a dovezilor colectate
+                în timpul testării.
+            </p>
+
+        </section>
+
+    </main>
+
+</div>
+
+<footer>
+    Raport de studiu individual · Testarea aplicațiilor · dm.ro
+</footer>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+const boxes = [...document.querySelectorAll('#checks input')];
+
+function updateProgress() {
+
+    const done = boxes.filter(x => x.checked).length;
+
+    document.getElementById('progressText').textContent =
+        `${done} din ${boxes.length} verificări completate`;
+
+    document.getElementById('progressBar').style.width =
+        (done / boxes.length * 100) + '%';
+
+}
+
+boxes.forEach(x => x.addEventListener('change', updateProgress));
+
+function resetChecks() {
+
+    boxes.forEach(x => x.checked = false);
+
+    updateProgress();
+
+}
+
+updateProgress();
+
+</script>
+
+</body>
+</html>
