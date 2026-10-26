@@ -1,1 +1,1 @@
-# Studiu-Individuakl-Testare
+# Studiu-Individual-Testare
